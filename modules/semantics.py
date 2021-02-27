@@ -1,3 +1,5 @@
+import numpy as np
+
 from sentence_transformers import SentenceTransformer, util
 
 
@@ -14,13 +16,12 @@ def community_detection(embeddings, threshold=0.75, min_community_size=10, init_
 
     # Minimum size for a community
     top_k_values, _ = cos_scores.topk(k=min_community_size, largest=True)
-
+    print(top_k_values.shape)
     # Filter for rows >= min_threshold
     extracted_communities = []
     for i in range(len(top_k_values)):
         if top_k_values[i][-1] >= threshold:
             new_cluster = []
-
             # Only check top k most similar entries
             top_val_large, top_idx_large = cos_scores[i].topk(k=init_max_size, largest=True)
             top_idx_large = top_idx_large.tolist()
@@ -60,3 +61,6 @@ def community_detection(embeddings, threshold=0.75, min_community_size=10, init_
                 extracted_ids.add(idx)
 
     return unique_communities
+
+
+find_topk_related(embedding, k=10)
