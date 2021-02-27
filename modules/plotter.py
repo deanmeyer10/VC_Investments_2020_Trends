@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 from collections import Counter
 
+from .cleaning import *
+
 
 #plotting functions
 def bar_plot(data, col_name):
