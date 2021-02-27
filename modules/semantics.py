@@ -63,4 +63,28 @@ def community_detection(embeddings, threshold=0.75, min_community_size=10, init_
     return unique_communities
 
 
-find_topk_related(embedding, k=10)
+def find_topk_related(data, description, threshold):
+    #break down dataset descriptions
+    descriptions = data.Description.to_list()
+    #embed all descritions
+    comp_embed = model.encode(description, convert_to_tensor=True)
+    embedding = model.encode(descriptions, convert_to_tensor=True)
+    
+    #Compute cosine-similarits
+    cosine_scores = util.pytorch_cos_sim(embedding, embeddings)
+    #get most similar companies and their indexes in the dataset
+    pairs = []
+    for i in range(len(cosine_scores[0]-1)):
+        pairs.append({'index': [i], 'score': cosine_scores[0][i]})
+
+    # Sort scores in decreasing order
+    pairs = sorted(pairs, key=lambda x: x['score'], reverse=True)
+    #delete first element which is the input company itself
+    del pairs[0]
+    #pull most popular companies from dataframe
+    
+    
+
+    
+    
+    
