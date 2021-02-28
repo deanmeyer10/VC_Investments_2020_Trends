@@ -15,7 +15,7 @@ class Semantic:
     def embed_descriptions(self, descriptions_list):
         return self.model.encode(descriptions_list, convert_to_tensor=True, show_progress_bar=True)
 
-    def community_detection(self, embeddings, threshold=0.75, min_community_size=10, init_max_size=1000):
+    def community_detection(self, threshold=0.75, min_community_size=10, init_max_size=100):
         """
         Function for Fast Community Detection
         Finds in the embeddings all communities, i.e. embeddings that are close (closer than threshold).
@@ -24,7 +24,7 @@ class Semantic:
         """
 
         # Compute cosine similarity scores
-        cos_scores = util.pytorch_cos_sim(embeddings, embeddings)
+        cos_scores = util.pytorch_cos_sim(self.embeddings, self.embeddings)
 
         # Minimum size for a community
         top_k_values, _ = cos_scores.topk(k=min_community_size, largest=True)
@@ -75,23 +75,16 @@ class Semantic:
         return unique_communities
 
 
-    def find_topk_related(self, embeddings, description, threshold):
+    def find_topk_related(self, description, threshold):
 
         #embed  description
         comp_embedding = self.model.encode(description, convert_to_tensor=True)
 
         #Compute cosine-similarities
-        cosine_scores = util.pytorch_cos_sim(comp_embedding, embeddings)
+        cosine_scores = util.pytorch_cos_sim(comp_embedding, self.embeddings)
         #get most similar companies and their indexes in the dataset
         pairs = []
         for i in range(len(cosine_scores[0]-1)):
             pairs.append({'index': [i], 'score': cosine_scores[0][i]})
 
         return pd.DataFrame(pairs)
-#     # Sort scores in decreasing order
-#     pairs = sorted(pairs, key=lambda x: x['score'], reverse=True)
-#     #delete first element which is the input company itself
-#     del pairs[0]
-#     #pull most popular companies from dataframe
-#     print(pairs)
-    
