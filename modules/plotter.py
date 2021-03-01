@@ -103,7 +103,7 @@ def plot_stacked(data, seed, early, later, col_name, counts):
     plt.ylim(-0.5, ax.get_yticks()[-1] + 0.5)
     ax.set_axisbelow(True)
     ax.xaxis.grid(color='gray', linestyle='dashed')
-    plt.show()
+    plt.show();
     
     
 def plot_stacked_vert(data_seed, data_early, data_later, col_name):   
@@ -161,7 +161,7 @@ def plot_stacked_vert(data_seed, data_early, data_later, col_name):
     plt.ylim(-0.5, ax.get_yticks()[-1] + 0.5)
     ax.set_axisbelow(True)
     ax.xaxis.grid(color='gray', linestyle='dashed')
-    plt.show()
+    plt.show();
     
     
 def hist_distribution(data_seed, data_early, data_later, col_name):
