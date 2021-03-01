@@ -28,7 +28,7 @@ class Semantic:
 
         # Minimum size for a community
         top_k_values, _ = cos_scores.topk(k=min_community_size, largest=True)
-        print(top_k_values.shape)
+        
         # Filter for rows >= min_threshold
         extracted_communities = []
         for i in range(len(top_k_values)):
