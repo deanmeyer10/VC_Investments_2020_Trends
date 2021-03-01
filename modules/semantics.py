@@ -13,7 +13,7 @@ class Semantic:
             self.embeddings = self.embed_descriptions(descriptions)
         
     def embed_descriptions(self, descriptions_list):
-        return self.model.encode(descriptions_list, convert_to_tensor=True, show_progress_bar=True)
+        return self.model.encode(descriptions_list, convert_to_tensor=True)
 
     def community_detection(self, threshold=0.75, min_community_size=10, init_max_size=100):
         """
@@ -85,6 +85,9 @@ class Semantic:
         #get most similar companies and their indexes in the dataset
         pairs = []
         for i in range(len(cosine_scores[0]-1)):
-            pairs.append({'index': [i], 'score': cosine_scores[0][i]})
+            pairs.append({'index': i, 'score': cosine_scores[0][i]})
 
+            
+        pairs = sorted(pairs, key=lambda x: x['score'], reverse=True)
+            
         return pd.DataFrame(pairs)
