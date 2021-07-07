@@ -7,6 +7,7 @@ dependencies:
  - tqdm>=4.41.1
  - matplotlib>=3.2.2
  - plotly>=4.7.0,<4.14.3
+ - seaborn
 
  - pip:
    - bertopic
@@ -15,12 +16,7 @@ dependencies:
    - umap-learn>=0.5.0
    - hdbscan>=0.8.27
    - torch>=1.4.0
-   - openpyxl
    - nbformat>=4.2.0
+   - openpyxl
+   - ipykernel
 
-
-
-
-
-
-  
